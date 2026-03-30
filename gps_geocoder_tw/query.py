@@ -16,10 +16,10 @@ from __future__ import annotations
 
 import math
 import sqlite3
+from pathlib import Path
 
-from gps_bridge.config import GPS_BRIDGE_DIR
-
-DB_FILE = GPS_BRIDGE_DIR / "taiwan_map.db"
+GEOCODER_DIR = Path.home() / ".gps-geocoder-tw"
+DB_FILE = GEOCODER_DIR / "taiwan_map.db"
 
 # Search radii in degrees (approximate)
 ADMIN_SEARCH_RADIUS = 0.05   # ~5 km

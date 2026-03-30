@@ -128,7 +128,7 @@ gps-bridge (raw coordinates)  →  gps-geocoder-tw (location names)
 
 - Map data: [OpenStreetMap](https://www.openstreetmap.org/) Taiwan extract via [Geofabrik](https://download.geofabrik.de/asia/taiwan.html)
 - Parsed with [osmiter](https://pypi.org/project/osmiter/) (pure Python, cross-platform)
-- Stored locally at `~/.gps-bridge/taiwan_map.db`
+- Stored locally at `~/.gps-geocoder-tw/taiwan_map.db`
 - Coverage depends on OSM community contributions — urban areas have excellent detail, rural areas may be thinner
 
 ---

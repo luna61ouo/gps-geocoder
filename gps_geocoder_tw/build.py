@@ -2,7 +2,7 @@
 build.py — Download Taiwan OSM PBF and build the local geocoder database.
 
 Data source: Geofabrik Taiwan extract (.osm.pbf), parsed with osmiter (pure Python)
-Output: ~/.gps-bridge/taiwan_map.db (SQLite with R-tree spatial index)
+Output: ~/.gps-geocoder-tw/taiwan_map.db (SQLite with R-tree spatial index)
 
 Tables:
     admin_areas  — Administrative boundaries (city, district, village)
@@ -20,16 +20,15 @@ from pathlib import Path
 import click
 import requests
 
-from gps_bridge.config import GPS_BRIDGE_DIR, ensure_dir
-
 logger = logging.getLogger("gps_geocoder_tw.build")
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 
-DB_FILE = GPS_BRIDGE_DIR / "taiwan_map.db"
-PBF_FILE = GPS_BRIDGE_DIR / "taiwan-latest.osm.pbf"
+GEOCODER_DIR = Path.home() / ".gps-geocoder-tw"
+DB_FILE = GEOCODER_DIR / "taiwan_map.db"
+PBF_FILE = GEOCODER_DIR / "taiwan-latest.osm.pbf"
 GEOFABRIK_URL = "https://download.geofabrik.de/asia/taiwan-latest.osm.pbf"
 
 ADMIN_LEVELS = {4, 6, 7, 8}
@@ -44,7 +43,7 @@ POI_TAG_KEYS = ["railway", "public_transport", "station", "amenity", "shop", "to
 
 def download_pbf(force: bool = False) -> Path:
     """Download Taiwan OSM PBF from Geofabrik."""
-    ensure_dir()
+    GEOCODER_DIR.mkdir(parents=True, exist_ok=True)
     if PBF_FILE.exists() and not force:
         size_mb = PBF_FILE.stat().st_size / (1024 * 1024)
         click.echo(f"PBF already exists: {PBF_FILE} ({size_mb:.0f} MB)")
@@ -302,7 +301,7 @@ def parse_and_build(pbf_path: Path, db_path: Path) -> None:
 
 def build_db(force: bool = False) -> Path:
     """Download PBF and build the geocoder database. Returns DB path."""
-    ensure_dir()
+    GEOCODER_DIR.mkdir(parents=True, exist_ok=True)
 
     if DB_FILE.exists() and not force:
         click.echo(f"Database already exists: {DB_FILE}")

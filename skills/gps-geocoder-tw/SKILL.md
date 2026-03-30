@@ -21,7 +21,7 @@ Before using any command, the local map database must be initialized:
 gps-geocoder init
 ```
 
-This downloads Taiwan OpenStreetMap data (~300 MB) and builds `~/.gps-bridge/taiwan_map.db` (~50 MB). One-time only, fully offline after that.
+This downloads Taiwan OpenStreetMap data (~300 MB) and builds `~/.gps-geocoder-tw/taiwan_map.db` (~50 MB). One-time only, fully offline after that.
 
 If the user runs any geocoder command and gets "database not found", guide them to run `gps-geocoder init`.
 
