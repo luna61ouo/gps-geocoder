@@ -9,15 +9,9 @@ Query flow:
 
 from __future__ import annotations
 
+import importlib
+
 from gps_geocoder.registry import list_maps, get_map_query
-
-
-# Bounding boxes for each map region (lat_min, lat_max, lng_min, lng_max)
-MAP_BOUNDS = {
-    "tw": (21.8, 26.5, 119.2, 122.2),
-    # "jp": (24.0, 46.0, 122.9, 153.99),
-    # "kr": (33.0, 38.7, 124.5, 132.0),
-}
 
 
 def _in_bounds(lat: float, lng: float, bounds: tuple[float, float, float, float]) -> bool:
@@ -37,7 +31,12 @@ def reverse_geocode(lat: float, lng: float) -> dict:
         map_id = m["id"]
         if not m["built"]:
             continue
-        bounds = MAP_BOUNDS.get(map_id)
+        # Read bounds from the map plugin's __init__.py
+        try:
+            mod = importlib.import_module(f"gps_geocoder.maps.{map_id}")
+            bounds = getattr(mod, "MAP_BOUNDS", None)
+        except ImportError:
+            bounds = None
         if bounds and not _in_bounds(lat, lng, bounds):
             continue
         try:
