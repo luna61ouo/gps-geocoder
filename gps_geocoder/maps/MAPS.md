@@ -7,13 +7,14 @@ gps-geocoder uses a pluggable map system. Each regional map is an optional modul
 | ID | Region | Data source | Approx. size |
 |----|--------|-------------|-------------|
 | `tw` | Taiwan (台灣) | OpenStreetMap / Geofabrik | ~52 MB |
+| `jp` | Japan (日本) | OpenStreetMap / Geofabrik | ~400 MB |
+| `kr` | South Korea (한국) | OpenStreetMap / Geofabrik | ~100 MB |
 
-## Coming soon
+## Planned
 
-Regional maps will be added over time based on community demand. Planned:
+Regional maps will be added over time based on community demand:
 
-- `jp` — Japan (日本)
-- `kr` — South Korea (韓國)
+- `us` — United States (by state, due to data size)
 
 ## Install only what you need
 
