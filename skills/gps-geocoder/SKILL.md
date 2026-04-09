@@ -61,12 +61,19 @@ Guide the user to download their saved places from Google:
 1. Go to https://takeout.google.com
 2. Deselect all → select **Maps (your places)** and **Saved**
 3. Export → download the ZIP
-4. Extract and find the JSON files
+4. Extract and find the GeoJSON files inside the `Takeout/` folder
+
+The file names depend on the user's Google account language. Common names:
+- English: `Labeled places.json`, `Saved Places.json`
+- Chinese: `已加上標籤的地點.json`, `已儲存的地點.json`
+- Japanese: `ラベル付きの場所.json`, `保存済みの場所.json`
 
 ```bash
-gps-geocoder places import "已加上標籤的地點.json"    # labeled: 家, 工作, 朋友家
-gps-geocoder places import "已儲存的地點.json"        # saved: restaurants, shops
+gps-geocoder places import "<path-to-labeled-places>.json"
+gps-geocoder places import "<path-to-saved-places>.json"
 ```
+
+The import command auto-detects both Google Takeout formats (labeled and saved). Duplicate entries are skipped automatically.
 
 Use `--owner` for multi-user setups:
 ```bash
