@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gps-geocoder"
-version = "0.2.0"
+version = "0.3.0"
 description = "Offline map system with personal place markers and pluggable regional maps"
 readme = "README.md"
 license = { text = "MIT" }
